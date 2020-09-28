@@ -1,9 +1,11 @@
 from selenium import webdriver
 from CONFIG import *
 import pandas as pd
+from selenium.webdriver.common.action_chains import ActionChains
 import os
 import time
 import xlsxwriter
+
 
 #defines path location
 path = 'C:\\Users\\kajro\\Documents\\Innova\\Pythonscripts\\Tarievenvergelijker\\'
@@ -13,6 +15,7 @@ chromedriverPath = path + 'chromedriver.exe'
 driver = webdriver.Chrome(chromedriverPath)
 driver.get('https://www.gaslicht.com/energievergelijker')
 driver.maximize_window()
+actions = ActionChains(driver)
 time.sleep(3)
 
 #Searches for the cookiebox
@@ -54,12 +57,16 @@ tableEUR3Jaar = tableTarieven
 tableNED1Jaar = tableTarieven
 tableModel = tableTarieven
 
+time.sleep(3)
+
+#Checkbox Innova
+innovaCheckbox = driver.find_element_by_xpath('//*[@id="aanbiedersinnova-energie"]')
+actions.move_to_element(innovaCheckbox).perform()
+innovaCheckbox.click()
+
 #Postcode
 gasLichtPostal = driver.find_element_by_id('postal').send_keys(postcode)
 gasLichtNmbr = driver.find_element_by_id('housenr').send_keys(huisNr)
-
-#Checkbox Innova
-driver.find_element_by_id('aanbiedersinnova-energie').click()
 
 #Verbruik niet slimme meter
 gasLichtEnkel = driver.find_element_by_id('usageElectricitySingle').send_keys(verbruikStroom) #vult het stroomverbruik in
