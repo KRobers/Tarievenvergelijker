@@ -107,30 +107,43 @@ try:
 except:
     pass
 
+time.sleep(3)
+
+#Het eerste element
 naam1Element = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a')
 naam1 = naam1Element.text
 print(naam1)
 
-naam1Stroom = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+naam1Enkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
 naam1Terug = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
 naam1Gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
 naam1Lever = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
+print(naam1Enkel, naam1Terug, naam1Gas, naam1Lever)
 
-print(naam1Stroom, naam1Terug, naam1Gas, naam1Lever)
-
-
+#Het tweede element
 naam2Element = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[1]/div[1]/div/div[4]/a')
 naam2 = naam2Element.text
 print(naam2)
 
+naam2Enkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[1]/div').text
+naam2Terug = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[2]/div').text
+naam2Gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[3]/div').text
+naam2Lever = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[4]/div').text
+print(naam2Enkel, naam2Terug, naam2Gas, naam2Lever)
+
+#Het derde element
 naam3Element = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[1]/div[1]/div/div[4]/a')
 naam3 = naam3Element.text
 print(naam3)
 
+naam3Enkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[1]/div').text
+naam3Terug = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[2]/div').text
+naam3Gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[3]/div').text
+naam3Lever = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[4]/div').text
+print(naam3Enkel, naam3Terug, naam3Gas, naam3Lever)
 
-
-
-
+if naam1 == 'Europese groene stroom en gas vast 1 jaar Actie':
+    EUR1Jaar = naam1
 
 
 
