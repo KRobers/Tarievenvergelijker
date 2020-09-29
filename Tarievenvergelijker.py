@@ -6,7 +6,6 @@ import os
 import time
 import xlsxwriter
 
-
 #defines path location
 path = 'C:\\Users\\kajro\\Documents\\Innova\\Pythonscripts\\Tarievenvergelijker\\'
 
@@ -88,8 +87,45 @@ gasLichtTerug = driver.find_element_by_id('terugstroomhoog')
 gasLichtTerug.clear()
 gasLichtTerug.send_keys(terugLevering)
 
+vergelijkPrijs = driver.find_element_by_xpath("/html/body/section/section[1]/div[2]/div/div/aside/div[1]/div/div/div[2]/form/div/div[2]/button")
+vergelijkPrijs.click()
+
+time.sleep(3)
+
+try:
+    prijsDetails1 = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[2]/div[2]/ul/li[1]')
+    if prijsDetails1.is_displayed():
+        prijsDetails1.click()
+
+    prijsDetails2 = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[2]/div[2]/ul/li[1]')
+    if prijsDetails2.is_displayed():
+        prijsDetails2.click()
+
+    prijsDetails3 = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[2]/div[2]/ul/li[1]')
+    if prijsDetails3.is_displayed():
+        prijsDetails3.click()
+except:
+    pass
+
+naam1Element = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a')
+naam1 = naam1Element.text
+print(naam1)
+
+naam1Stroom = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+naam1Terug = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
+naam1Gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
+naam1Lever = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
+
+print(naam1Stroom, naam1Terug, naam1Gas, naam1Lever)
 
 
+naam2Element = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[1]/div[1]/div/div[4]/a')
+naam2 = naam2Element.text
+print(naam2)
+
+naam3Element = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[1]/div[1]/div/div[4]/a')
+naam3 = naam3Element.text
+print(naam3)
 
 
 
