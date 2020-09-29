@@ -38,6 +38,7 @@ try:
     openOptions.click()
 except:#if not found exeption is made
     pass
+
 #Path to Excel file
 tarievenPath = path + 'tarieven.xlsx'
 
@@ -57,22 +58,38 @@ tableEUR3Jaar = tableTarieven
 tableNED1Jaar = tableTarieven
 tableModel = tableTarieven
 
-time.sleep(3)
-
 #Checkbox Innova
 innovaCheckbox = driver.find_element_by_xpath('//*[@id="aanbiedersinnova-energie"]')
-actions.move_to_element(innovaCheckbox).perform()
-innovaCheckbox.click()
+driver.execute_script("arguments[0].click();", innovaCheckbox)
+
+#"Ik wil mijn verbruik zelf invullen" klikken
+try:
+    expandUsage = driver.find_element_by_xpath("//*[contains(text(), 'Ik wil mijn verbruik zelf invullen')]")
+    if expandUsage.is_displayed():
+        expandUsage.click()
+except:
+    pass
 
 #Postcode
 gasLichtPostal = driver.find_element_by_id('postal').send_keys(postcode)
 gasLichtNmbr = driver.find_element_by_id('housenr').send_keys(huisNr)
 
 #Verbruik niet slimme meter
-gasLichtEnkel = driver.find_element_by_id('usageElectricitySingle').send_keys(verbruikStroom) #vult het stroomverbruik in
-gaslichtGas = driver.find_element_by_id('usageGas').send_keys(verbruikGas) #vult het gasverbruik in
-gasLichtTerug = driver.find_element_by_id('terugstroomhoog').send_keys(terugLevering)
-driver.find_element_by_class_name('c-button u-1/1 mb0 ph0 js-compare-widget__submit-button').click()
+
+gasLichtEnkel = driver.find_element_by_id('usageElectricitySingle')
+gasLichtEnkel.clear()
+gasLichtEnkel.send_keys(verbruikStroom)
+
+gaslichtGas = driver.find_element_by_id('usageGas')
+gaslichtGas.clear()
+gaslichtGas.send_keys(verbruikGas)
+
+gasLichtTerug = driver.find_element_by_id('terugstroomhoog')
+gasLichtTerug.clear()
+gasLichtTerug.send_keys(terugLevering)
+
+
+
 
 
 
