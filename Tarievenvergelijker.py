@@ -89,7 +89,7 @@ gasLichtTerug.send_keys(terugLevering)
 vergelijkPrijs = driver.find_element_by_xpath("/html/body/section/section[1]/div[2]/div/div/aside/div[1]/div/div/div[2]/form/div/div[2]/button")
 vergelijkPrijs.click()
 
-time.sleep(3)
+time.sleep(5)
 
 try:
     prijsDetails1 = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[2]/div[2]/ul/li[1]')
@@ -106,37 +106,38 @@ try:
 except:
     pass
 
-time.sleep(3)
+time.sleep(2)
 
-def EU1Jaar():
 
-    #Het eerste element
-    EU1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a')
-    EU1Jaar = EU1JaarElement.text
-    print(EU1Jaar)
 
-    EU1JaarEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
-    EU1JaarTerug = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
-    EU1JaarGas = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
-    EU1JaarVast = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
-    print(EU1JaarEnkel, EU1JaarTerug, EU1JaarGas, EU1JaarVast)
+#Het eerste element
+EU1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a')
+EU1Jaar = EU1JaarElement.text
+print(EU1Jaar)
 
-    EU1JaarVast = EU1JaarVast[1:] #replaces the €
-    EU1JaarVast = EU1JaarVast[1:]
+EU1JaarEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+EU1JaarTerug = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
+EU1JaarGas = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
+EU1JaarVast = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
+print(EU1JaarEnkel, EU1JaarTerug, EU1JaarGas, EU1JaarVast)
 
-    EU1JaarVastStroom = float(EU1JaarVast) / 2
-    EU1JaarVastGas = float(EU1JaarVast) / 2
+EU1JaarVast = EU1JaarVast[1:] #replaces the €
+EU1JaarVast = float(EU1JaarVast.replace(',','.'))
 
-    tableEUR1Jaar = tableEUR1Jaar.append({'Enkel': EU1JaarEnkel}, ignore_index=True)
-    tableEUR1Jaar = tableEUR1Jaar.append({'Teruglevertarief': EU1JaarTerug}, ignore_index=True)
-    tableEUR1Jaar = tableEUR1Jaar.append({'Gas': EU1JaarGas}, ignore_index=True)
-    tableEUR1Jaar = tableEUR1Jaar.append({'Vastrecht Stroom': EU1JaarVastStroom}, ignore_index=True)
-    tableEUR1Jaar = tableEUR1Jaar.append({'Vastrecht Gas': EU1JaarVastGas}, ignore_index=True)
+EU1JaarVastStroom = EU1JaarVast / 2
+EU1JaarVastGas = EU1JaarVast / 2
 
-    tableEUR1Jaar.to_excel(writerTarieven, sheet_name='EUR1Jaar', index=False)
-    writerTarieven.save()
+tableEUR1Jaar = tableEUR1Jaar.append({'Enkel': EU1JaarEnkel}, ignore_index=True)
+tableEUR1Jaar = tableEUR1Jaar.append({'Teruglevertarief': EU1JaarTerug}, ignore_index=True)
+tableEUR1Jaar = tableEUR1Jaar.append({'Gas': EU1JaarGas}, ignore_index=True)
+tableEUR1Jaar = tableEUR1Jaar.append({'Vastrecht Stroom': EU1JaarVastStroom}, ignore_index=True)
+tableEUR1Jaar = tableEUR1Jaar.append({'Vastrecht Gas': EU1JaarVastGas}, ignore_index=True)
 
-EU1Jaar()
+tableEUR1Jaar.to_excel(writerTarieven, sheet_name='EUR1Jaar', index=False, startrow=2)
+writerTarieven.save()
+
+
+
 #Het tweede element
 Ned1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[1]/div[1]/div/div[4]/a')
 Ned1Jaar = Ned1JaarElement.text
