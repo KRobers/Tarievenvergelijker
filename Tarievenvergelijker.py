@@ -22,20 +22,19 @@ try:
     cookiesBox = driver.find_element_by_id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll")
     if cookiesBox.is_displayed(): #if displayed click the box
         cookiesBox.click()
-except: #if not found exception is made
+except:
     pass
-
 #Searches for the cookiebox
 try:
     clickLabel = driver.find_element_by_id("CybotCookiebotDialogBodyLevelButtonAccept")
     if clickLabel.is_displayed(): #if displayed click the box
         clickLabel.click()
-except: #If not found exeption is made
+except:
     pass
 try:
     openOptions = driver.find_element_by_css_selector(".c-gl-compare-widget__usage-link.c-link.c-link--cta.js-compare-widget-trigger.custom")
     openOptions.click()
-except:#if not found exeption is made
+except:
     pass
 
 #Path to Excel file
@@ -109,41 +108,63 @@ except:
 
 time.sleep(3)
 
-#Het eerste element
-naam1Element = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a')
-naam1 = naam1Element.text
-print(naam1)
+def EU1Jaar():
 
-naam1Enkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
-naam1Terug = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
-naam1Gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
-naam1Lever = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
-print(naam1Enkel, naam1Terug, naam1Gas, naam1Lever)
+    #Het eerste element
+    EU1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a')
+    EU1Jaar = EU1JaarElement.text
+    print(EU1Jaar)
 
+    EU1JaarEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+    EU1JaarTerug = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
+    EU1JaarGas = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
+    EU1JaarVast = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
+    print(EU1JaarEnkel, EU1JaarTerug, EU1JaarGas, EU1JaarVast)
+
+    EU1JaarVast = EU1JaarVast[1:] #replaces the €
+    EU1JaarVast = EU1JaarVast[1:]
+
+    EU1JaarVastStroom = float(EU1JaarVast) / 2
+    EU1JaarVastGas = float(EU1JaarVast) / 2
+
+    tableEUR1Jaar = tableEUR1Jaar.append({'Enkel': EU1JaarEnkel}, ignore_index=True)
+    tableEUR1Jaar = tableEUR1Jaar.append({'Teruglevertarief': EU1JaarTerug}, ignore_index=True)
+    tableEUR1Jaar = tableEUR1Jaar.append({'Gas': EU1JaarGas}, ignore_index=True)
+    tableEUR1Jaar = tableEUR1Jaar.append({'Vastrecht Stroom': EU1JaarVastStroom}, ignore_index=True)
+    tableEUR1Jaar = tableEUR1Jaar.append({'Vastrecht Gas': EU1JaarVastGas}, ignore_index=True)
+
+    tableEUR1Jaar.to_excel(writerTarieven, sheet_name='EUR1Jaar', index=False)
+    writerTarieven.save()
+
+EU1Jaar()
 #Het tweede element
-naam2Element = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[1]/div[1]/div/div[4]/a')
-naam2 = naam2Element.text
-print(naam2)
+Ned1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[1]/div[1]/div/div[4]/a')
+Ned1Jaar = Ned1JaarElement.text
+print(Ned1Jaar)
 
-naam2Enkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[1]/div').text
-naam2Terug = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[2]/div').text
-naam2Gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[3]/div').text
-naam2Lever = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[4]/div').text
-print(naam2Enkel, naam2Terug, naam2Gas, naam2Lever)
+Ned1JaarEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[1]/div').text
+Ned1JaarTerug = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[2]/div').text
+Ned1JaarGas = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[3]/div').text
+Ned1JaarLever = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[4]/div').text
+print(Ned1JaarEnkel, Ned1JaarTerug, Ned1JaarGas, Ned1JaarLever)
 
 #Het derde element
-naam3Element = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[1]/div[1]/div/div[4]/a')
-naam3 = naam3Element.text
-print(naam3)
+EU3JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[1]/div[1]/div/div[4]/a')
+EU3Jaar = EU3JaarElement.text
+print(EU3Jaar)
 
-naam3Enkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[1]/div').text
-naam3Terug = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[2]/div').text
-naam3Gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[3]/div').text
-naam3Lever = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[4]/div').text
-print(naam3Enkel, naam3Terug, naam3Gas, naam3Lever)
+EU3JaarEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[1]/div').text
+EU3JaarTerug = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[2]/div').text
+EU3JaarGas = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[3]/div').text
+EU3JaarLever = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[4]/div').text
+print(EU3JaarEnkel, EU3JaarTerug, EU3JaarGas, EU3JaarLever)
 
-if naam1 == 'Europese groene stroom en gas vast 1 jaar Actie':
-    EUR1Jaar = naam1
+
+
+#Verbruik Slimme meter
+
+
+
 
 
 
