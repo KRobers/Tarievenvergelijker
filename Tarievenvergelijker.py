@@ -2,6 +2,7 @@ from selenium import webdriver
 from CONFIG import *
 import pandas as pd
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import Select
 import os
 import time
 import xlsxwriter
@@ -21,6 +22,11 @@ driver.maximize_window()
 actions = ActionChains(driver)
 time.sleep(3)
 
+"""
+-------------------------------------
+Gaslicht.com
+-------------------------------------
+"""
 
 #Searches for the cookiebox
 try:
@@ -96,9 +102,9 @@ except:
 time.sleep(2)
 
 """
-
-Enkele meter 
-
+-------------------------------------
+Enkele meter
+-------------------------------------
 """
 
 #Het eerste element
@@ -158,9 +164,9 @@ EU3JaarVastStroom = EU3JaarVast / 2
 EU3JaarVastGas = EU3JaarVast / 2
 
 """
-
-Dubbele meter 
-
+-------------------------------------
+Dubbele of slimme meter
+-------------------------------------
 """
 
 try:
@@ -208,21 +214,21 @@ except:
 time.sleep(2)
 
 #1st Element
-EU1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a').text
-print(EU1JaarElement)
+glEU1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a').text
+print(glEU1JaarElement)
 
-EU1JaarNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
-EU1JaarDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
-EU1JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
-EU1JaarTerugDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
-EU1JaarGasDubbel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[5]/div').text
+glEU1JaarNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+glEU1JaarDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
+glEU1JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
+glEU1JaarTerugDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
+glEU1JaarGasDubbel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[5]/div').text
 
 
-print(EU1JaarNormaal,
-EU1JaarDal,
-EU1JaarTerugNormaal,
-EU1JaarTerugDal,
-EU1JaarGasDubbel)
+print(glEU1JaarNormaal,
+glEU1JaarDal,
+glEU1JaarTerugNormaal,
+glEU1JaarTerugDal,
+glEU1JaarGasDubbel)
 
 #2nd Element
 NED1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[1]/div[1]/div/div[4]/a').text
@@ -256,23 +262,125 @@ EU3JaarTerugNormaal,
 EU3JaarTerugDal,
 EU3JaarGasDubbel)
 
+time.sleep(3)
+
+"""
+-------------------------------------
+Independer.nl
+-------------------------------------
+"""
+
+driver.get('https://www.independer.nl/energie/intro.aspx')
+
+time.sleep(3)
+
+driver.find_element_by_xpath('//*[@id="cookieBar"]/div/div[3]/button').click()
+
+#Invullen Postcode en Huisnummer
+driver.find_element_by_xpath('//*[@id="salesboxForm"]/div/div/div[1]/div/div[2]/div/input').send_keys(postcode)
+driver.find_element_by_xpath('//*[@id="salesboxForm"]/div/div/div[2]/div/div[2]/div/input[1]').send_keys(huisNr)
+button = driver.find_element_by_xpath('//*[@id="salesboxSubmitButton"]')
+button.click()
+
+time.sleep(2)
+#Volgende scherm
+inCheckbox = driver.find_element_by_xpath('//*[@id="radio-1"]')
+driver.execute_script("arguments[0].click();", inCheckbox)
+
+inSPCheckbox = driver.find_element_by_xpath('//*[@id="switch-1"]')
+driver.execute_script("arguments[0].click();", inSPCheckbox)
+
+time.sleep(2)
+
+driver.find_element_by_xpath('/html/body/ind-app/ind-shell/div/ng-component/ind-invoer-shell/ind-sidebar-layout/div/section/content/form/ind-input-group/div/div[2]/div[1]/ind-input-item/div[2]/input-item-content/ind-integer-input/div/input').send_keys(verbruikStroom)
+driver.find_element_by_xpath('/html/body/ind-app/ind-shell/div/ng-component/ind-invoer-shell/ind-sidebar-layout/div/section/content/form/ind-input-group/div/ind-input-item[2]/div[2]/input-item-content/ind-integer-input/div/input').send_keys(verbruikGas)
+driver.find_element_by_xpath('/html/body/ind-app/ind-shell/div/ng-component/ind-invoer-shell/ind-sidebar-layout/div/section/content/form/ind-input-group/div/ind-input-item[4]/div[2]/input-item-content/ind-integer-input/div/input').send_keys(terugLevering)
+
+button = driver.find_element_by_xpath('/html/body/ind-app/ind-shell/div/ng-component/ind-invoer-shell/ind-sidebar-layout/div/section/content/form/ind-btn-container/button')
+button.click()
+
+time.sleep(2)
+
+inCheckbox = driver.find_element_by_xpath('//*[@id="radio-5"]')
+driver.execute_script("arguments[0].click();", inCheckbox)
+
+inCheckbox = driver.find_element_by_xpath('//*[@id="radio-6"]')
+driver.execute_script("arguments[0].click();", inCheckbox)
+
+inCheckbox = driver.find_element_by_xpath('//*[@id="radio-10"]')
+driver.execute_script("arguments[0].click();", inCheckbox)
+
+inCheckbox = driver.find_element_by_xpath('//*[@id="radio-10"]')
+driver.execute_script("arguments[0].click();", inCheckbox)
+
+button = driver.find_element_by_xpath('/html/body/ind-app/ind-shell/div/ng-component/ind-invoer-shell/ind-sidebar-layout/div/section/content/form/ind-btn-container/button')
+button.click()
+
+
+
+
+"""
+-------------------------------------
+Overstappen.nl / als we erop staan
+-------------------------------------
+
+driver.get('https://www.overstappen.nl/energie/vergelijken/')
+
+time.sleep(3)
+
+#Eerste scherm
+driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[1]/div/div[1]/input').send_keys(postcode)
+driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[2]/div/div[1]/div/div[1]/div/input').send_keys(huisNr)
+button = driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[3]/div/button')
+time.sleep(3)
+button.click()
+
+time.sleep(3)
+#Tweede scherm
+select = Select(driver.find_element_by_name('currentprovider'))
+select.select_by_visible_text('Weet ik niet/niet van toepassing')
+
+button = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[4]/div[1]/div/button[1]')
+button.click()
+
+button = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div/div/button[1]')
+button.click()
+
+ovSPCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[4]/div/div/div/div')
+driver.execute_script("arguments[0].click();", ovSPCheckbox)
+
+#Stroom, gas en terug
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[1]/div/div[1]/input').send_keys(verbruikStroom)
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[2]/div/div[1]/input').send_keys(verbruikGas)
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[5]/div/div/div/div/div[1]/input').send_keys(terugLevering)
+
+button = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[8]/div/button')
+button.click()
+
+"""
+
+
+
+
+"""
 #Creates the dataframe for the Excel file
-tableTarieven = pd.DataFrame({'Enkel':[EU1JaarEnkel],
-                              'Normaal':[EU1JaarNormaal],
-                              'Dal':[EU1JaarDal],
-                              'GasEnkel':[EU1JaarGasEnkel],
-                              'GasDubbel':[EU1JaarGasDubbel],
-                              'Vastrecht Stroom':[EU1JaarVastStroom],
-                              'Vastrecht gas':[EU1JaarVastGas],
-                              'Teruglevertarief':[EU1JaarTerug],
-                              'Teruglevertarief Normaal':[EU1JaarTerugNormaal],
-                              'Teruglevertarief Dal':[EU1JaarTerugDal]},
+tableTarieven = pd.DataFrame(data={
+                              'Enkel':[glEU1JaarEnkel],
+                              'Normaal':[glEU1JaarNormaal],
+                              'Dal':[glEU1JaarDal],
+                              'GasEnkel':[glEU1JaarGasEnkel],
+                              'GasDubbel':[glEU1JaarGasDubbel],
+                              'Vastrecht Stroom':[glEU1JaarVastStroom],
+                              'Vastrecht gas':[glEU1JaarVastGas],
+                              'Teruglevertarief':[glEU1JaarTerug],
+                              'Teruglevertarief Normaal':[glEU1JaarTerugNormaal],
+                              'Teruglevertarief Dal':[glEU1JaarTerugDal]},
                              index=['Gaslicht.com', 'Pricewise.nl', 'Overstappen.nl', 'Independer.nl' ])
 
 
-tableTarieven.to_excel(writerTarieven, sheet_name='EUR1Jaar', index=False,)
+tableTarieven.to_excel(writerTarieven, sheet_name='EUR1Jaar', index=True,)
 writerTarieven.save()
-"""
+
 
 
 
