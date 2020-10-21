@@ -1,14 +1,14 @@
-verbruikGas = 1000
+verbruikGas = 1500
 
 #Geen Slimme meter
-verbruikStroom = 1000
-terugLevering = 1000
+verbruikStroom = 3500
+terugLevering = 500
 
 #Slimme meter
-verbruikNormaalTarief = 1000
-verbruikDalTarief = 1000
-terugNormaalTarief= 1000
-terugDaltarief = 1000
+verbruikNormaalTarief = 2100
+verbruikDalTarief = 1400
+terugNormaalTarief= 350
+terugDaltarief = 150
 
 #Adress
 postcode = '2565 TZ'

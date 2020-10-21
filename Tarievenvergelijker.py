@@ -262,13 +262,77 @@ EU3JaarTerugNormaal,
 EU3JaarTerugDal,
 EU3JaarGasDubbel)
 
+
+"""
+-------------------------------------
+Overstappen.nl 
+-------------------------------------
+"""
+
+driver.get('https://www.overstappen.nl/energie/vergelijken/')
+
 time.sleep(3)
+
+driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/div/div[2]/img').click()
+
+#Eerste scherm
+driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[1]/div/div[1]/input').send_keys(postcode)
+driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[2]/div/div[1]/div/div[1]/div/input').send_keys(huisNr)
+button = driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[3]/div/button')
+time.sleep(3)
+button.click()
+
+time.sleep(3)
+#Tweede scherm
+select = Select(driver.find_element_by_name('currentprovider'))
+select.select_by_visible_text('Weet ik niet/niet van toepassing')
+
+button = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[4]/div[1]/div/button[1]')
+button.click()
+
+button = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div/div/button[1]')
+button.click()
+
+ovSPCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[4]/div/div/div/div')
+driver.execute_script("arguments[0].click();", ovSPCheckbox)
+
+#Stroom, gas en terug
+ovEnkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[1]/div/div[1]/input')
+ovEnkel.clear()
+ovEnkel.send_keys(verbruikStroom)
+ovGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[2]/div/div[1]/input')
+ovGas.clear()
+ovGas.send_keys(verbruikGas)
+ovTerug = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[5]/div/div/div/div/div[1]/input')
+ovTerug.clear()
+ovTerug.send_keys(terugLevering)
+
+time.sleep(3)
+
+button = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[8]/div/button')
+button.click()
+
+time.sleep(5)
+
+ovInnovaCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div[7]/div[2]/div/div[8]/div/input')
+driver.execute_script("arguments[0].click();", ovInnovaCheckbox)
+
+time.sleep(2)
+
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/button').click()
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div[2]/button').click()
+
+time.sleep(1)
+
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]').click()
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div[1]').click()
+
 
 """
 -------------------------------------
 Independer.nl
 -------------------------------------
-"""
+
 
 driver.get('https://www.independer.nl/energie/intro.aspx')
 
@@ -316,46 +380,17 @@ driver.execute_script("arguments[0].click();", inCheckbox)
 button = driver.find_element_by_xpath('/html/body/ind-app/ind-shell/div/ng-component/ind-invoer-shell/ind-sidebar-layout/div/section/content/form/ind-btn-container/button')
 button.click()
 
-
-
-
-"""
--------------------------------------
-Overstappen.nl / als we erop staan
--------------------------------------
-
-driver.get('https://www.overstappen.nl/energie/vergelijken/')
-
 time.sleep(3)
 
-#Eerste scherm
-driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[1]/div/div[1]/input').send_keys(postcode)
-driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[2]/div/div[1]/div/div[1]/div/input').send_keys(huisNr)
-button = driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[3]/div/button')
-time.sleep(3)
-button.click()
+inAllContracts = driver.find_element_by_xpath('//*[@id="switch-5"]')
+driver.execute_script("arguments[0].click();", inAllContracts)
 
-time.sleep(3)
-#Tweede scherm
-select = Select(driver.find_element_by_name('currentprovider'))
-select.select_by_visible_text('Weet ik niet/niet van toepassing')
+time.sleep(2)
 
-button = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[4]/div[1]/div/button[1]')
-button.click()
+moreInfo = driver.find_element_by_id('toggle-snelle-verdieping')
+moreInfo.click()
 
-button = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div/div/button[1]')
-button.click()
 
-ovSPCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[4]/div/div/div/div')
-driver.execute_script("arguments[0].click();", ovSPCheckbox)
-
-#Stroom, gas en terug
-driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[1]/div/div[1]/input').send_keys(verbruikStroom)
-driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[2]/div/div[1]/input').send_keys(verbruikGas)
-driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[5]/div/div/div/div/div[1]/input').send_keys(terugLevering)
-
-button = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[8]/div/button')
-button.click()
 
 """
 
