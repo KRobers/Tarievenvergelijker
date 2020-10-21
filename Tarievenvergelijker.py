@@ -273,7 +273,6 @@ driver.get('https://www.overstappen.nl/energie/vergelijken/')
 
 time.sleep(3)
 
-driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/div/div[2]/img').click()
 
 #Eerste scherm
 driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[1]/div/div[1]/input').send_keys(postcode)
@@ -295,20 +294,25 @@ button.click()
 
 ovSPCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[4]/div/div/div/div')
 driver.execute_script("arguments[0].click();", ovSPCheckbox)
-
-#Stroom, gas en terug
-ovEnkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[1]/div/div[1]/input')
-ovEnkel.clear()
-ovEnkel.send_keys(verbruikStroom)
-ovGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[2]/div/div[1]/input')
-ovGas.clear()
-ovGas.send_keys(verbruikGas)
-ovTerug = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[5]/div/div/div/div/div[1]/input')
-ovTerug.clear()
-ovTerug.send_keys(terugLevering)
-
+#---------------
+#Invullen gegevens
+#---------------
+#Enkel
+ovEnkelinput = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[1]/div/div[1]/input')
+ovEnkelinput.clear()
+ovEnkelinput.send_keys(verbruikStroom)
+#Gas
+ovGasinput = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[2]/div/div[1]/input')
+ovGasinput.clear()
+ovGasinput.send_keys(verbruikGas)
+#Teruglever
+ovTeruginput = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[5]/div/div/div/div/div[1]/input')
+ovTeruginput.clear()
+ovTeruginput.send_keys(terugLevering)
+#CookieButton
+driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/div/div[2]/img').click()
 time.sleep(3)
-
+#Knop vergelijk
 button = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[8]/div/button')
 button.click()
 
@@ -319,13 +323,31 @@ driver.execute_script("arguments[0].click();", ovInnovaCheckbox)
 
 time.sleep(2)
 
+#Meer informatie
 driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/button').click()
 driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div[2]/button').click()
 
 time.sleep(1)
 
+#Tarieven
 driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]').click()
 driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div[1]').click()
+
+"""
+--------------
+Gegevens
+--------------
+"""
+
+ovEnkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+ovGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+ovVastStroom = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[4]/span[2]').text
+ovVastGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[5]/span[2]').text
+ovTerug = '-'
+
+wijzigButton = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[1]/div[2]/button')
+wijzigButton.click()
+
 
 
 """
