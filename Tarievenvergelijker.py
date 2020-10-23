@@ -35,6 +35,7 @@ try:
         cookiesBox.click()
 except:
     pass
+
 #Searches for the cookiebox
 try:
     clickLabel = driver.find_element_by_id("CybotCookiebotDialogBodyLevelButtonAccept")
@@ -59,6 +60,15 @@ try:
         expandUsage.click()
 except:
     pass
+
+
+def replaceKomma(value):
+    value = float(value.replace(',', '.'))
+    return value
+
+def deleteEuroSign(value):
+    value = value[1:]
+    return value
 
 #Postcode
 gasLichtPostal = driver.find_element_by_id('postal').send_keys(postcode)
@@ -215,7 +225,7 @@ time.sleep(2)
 
 #1st Element
 glEU1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a').text
-print(glEU1JaarElement)
+print(glEU1JaarElement)#Tijdelijk
 
 glEU1JaarNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
 glEU1JaarDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
@@ -223,7 +233,7 @@ glEU1JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-
 glEU1JaarTerugDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
 glEU1JaarGasDubbel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[5]/div').text
 
-
+#Tijdelijk
 print(glEU1JaarNormaal,
 glEU1JaarDal,
 glEU1JaarTerugNormaal,
@@ -232,7 +242,7 @@ glEU1JaarGasDubbel)
 
 #2nd Element
 NED1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[1]/div[1]/div/div[4]/a').text
-print(NED1JaarElement)
+print(NED1JaarElement)#Tijdelijk
 
 NED1JaarNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[1]/div').text
 NED1JaarDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[2]/div').text
@@ -240,7 +250,7 @@ NED1JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-t
 NED1JaarTerugDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[4]/div').text
 NED1JaarGasDubbel = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[5]/div').text
 
-
+#Tijdelijk
 print(NED1JaarNormaal,
 NED1JaarDal,
 NED1JaarTerugNormaal,
@@ -248,7 +258,7 @@ NED1JaarTerugDal,
 NED1JaarGasDubbel)
 
 EU3JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[1]/div[1]/div/div[4]/a').text
-print(EU3JaarElement)
+print(EU3JaarElement)#Tijdelijk
 
 EU3JaarNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[1]/div').text
 EU3JaarDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[2]/div').text
@@ -256,6 +266,7 @@ EU3JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-ta
 EU3JaarTerugDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[4]/div').text
 EU3JaarGasDubbel = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[5]/div').text
 
+#Tijdelijk
 print(EU3JaarNormaal,
 EU3JaarDal,
 EU3JaarTerugNormaal,
@@ -294,9 +305,11 @@ button.click()
 
 ovSPCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[4]/div/div/div/div')
 driver.execute_script("arguments[0].click();", ovSPCheckbox)
+
 #---------------
 #Invullen gegevens
 #---------------
+
 #Enkel
 ovEnkelinput = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div[2]/div/div/form/div[6]/div[2]/div/div[1]/div/div[1]/input')
 ovEnkelinput.clear()
@@ -345,8 +358,38 @@ ovVastStroom = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div
 ovVastGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[5]/span[2]').text
 ovTerug = '-'
 
+print(ovEnkel, ovGas, ovVastStroom, ovVastGas, ovTerug)
+
+
+"""
+--------------
+Wijziging Gegevens
+--------------
+"""
+
 wijzigButton = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[1]/div[2]/button')
 wijzigButton.click()
+
+ovDubbeleCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div[2]/div[2]/div[3]/form/div[5]/div/div/input')
+driver.execute_script("arguments[0].click();", ovDubbeleCheckbox)
+
+wijzigButton = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div[2]/div[2]/div[3]/form/div[10]/div/button')
+wijzigButton.click()
+
+ovInnovaCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div[7]/div[2]/div/div[8]/div/input')
+driver.execute_script("arguments[0].click();", ovInnovaCheckbox)
+
+time.sleep(2)
+
+#Meer informatie
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/button').click()
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div[2]/button').click()
+
+time.sleep(1)
+
+#Tarieven
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]').click()
+driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div[1]').click()
 
 
 
