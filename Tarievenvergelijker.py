@@ -273,6 +273,85 @@ EU3JaarTerugNormaal,
 EU3JaarTerugDal,
 EU3JaarGasDubbel)
 
+"""
+-------------------------------------
+Modelcontract   
+-------------------------------------
+"""
+
+try:
+    wijzig = driver.find_element_by_xpath("//*[contains(text(), 'Wijzig')]")
+    if wijzig.is_displayed():
+        wijzig.click()
+except:
+    pass
+
+time.sleep(1)
+
+driver.find_element_by_xpath('//*[@id="terugstroomhoogdubbel"]').clear()
+driver.find_element_by_xpath('//*[@id="terugstroomlaag"]').clear()
+
+#Vergelijk Prijs knop
+vergelijkPrijs = driver.find_element_by_xpath("/html/body/section/section[1]/div[2]/div/div/aside/div[1]/div/div/div[2]/form/div/div[2]/button")
+vergelijkPrijs.click()
+
+time.sleep(2)
+
+glOnbepaald = driver.find_element_by_xpath('//*[@id="looptijd99"]')
+driver.execute_script("arguments[0].click();", glOnbepaald)
+
+time.sleep(2)
+
+try:
+    prijsDetails = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol/li/div[2]/div[2]/ul/li[1]')
+    if prijsDetails.is_displayed():
+        prijsDetails.click()
+except:
+    pass
+
+time.sleep(3)
+
+glModelELement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol/li/div[1]/div[1]/div/div[4]/a').text
+print(glModelELement)
+
+glModelNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+glModelDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
+glModelGas = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
+glModelLever = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
+
+#Enkele meter
+
+time.sleep(2)
+
+try:
+    wijzig = driver.find_element_by_xpath("//*[contains(text(), 'Wijzig')]")
+    if wijzig.is_displayed():
+        wijzig.click()
+except:
+    pass
+
+time.sleep(1)
+
+glSlim = driver.find_element_by_xpath('//*[@id="doublemeter1"]')
+driver.execute_script("arguments[0].click();", glSlim)
+
+vergelijkPrijs = driver.find_element_by_xpath("/html/body/section/section[1]/div[2]/div/div/aside/div[1]/div/div/div[2]/form/div/div[2]/button")
+vergelijkPrijs.click()
+
+time.sleep(3)
+
+try:
+    prijsDetails = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol/li/div[2]/div[2]/ul/li[1]')
+    if prijsDetails.is_displayed():
+        prijsDetails.click()
+except:
+    pass
+
+time.sleep(2)
+
+glModelEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+
+print(glModelEnkel, glModelNormaal, glModelDal, glModelGas, glModelLever)
 
 """
 -------------------------------------
@@ -284,13 +363,17 @@ driver.get('https://www.overstappen.nl/energie/vergelijken/')
 
 time.sleep(3)
 
-
 #Eerste scherm
 driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[1]/div/div[1]/input').send_keys(postcode)
 driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[2]/div/div[1]/div/div[1]/div/input').send_keys(huisNr)
 button = driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[3]/div/button')
 time.sleep(3)
 button.click()
+time.sleep(2)
+try:
+    button.click()
+except:
+    pass
 
 time.sleep(3)
 #Tweede scherm
@@ -352,14 +435,12 @@ Gegevens
 --------------
 """
 
+
 ovEnkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
 ovGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
 ovVastStroom = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[4]/span[2]').text
 ovVastGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[5]/span[2]').text
 ovTerug = '-'
-
-print(ovEnkel, ovGas, ovVastStroom, ovVastGas, ovTerug)
-
 
 """
 --------------
@@ -376,6 +457,8 @@ driver.execute_script("arguments[0].click();", ovDubbeleCheckbox)
 wijzigButton = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div[2]/div[2]/div[3]/form/div[10]/div/button')
 wijzigButton.click()
 
+time.sleep(2)
+
 ovInnovaCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div[7]/div[2]/div/div[8]/div/input')
 driver.execute_script("arguments[0].click();", ovInnovaCheckbox)
 
@@ -391,13 +474,20 @@ time.sleep(1)
 driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]').click()
 driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div[1]').click()
 
+time.sleep(2)
 
+ovNormaal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+ovDal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+ovTerugNormaal = '-'
+ovTerugDal = '-'
+
+print(ovEnkel, ovNormaal, ovDal, ovGas, ovVastStroom, ovVastGas, ovTerug, ovTerugNormaal, ovTerugDal)
 
 """
 -------------------------------------
 Independer.nl
 -------------------------------------
-
+"""
 
 driver.get('https://www.independer.nl/energie/intro.aspx')
 
@@ -457,7 +547,7 @@ moreInfo.click()
 
 
 
-"""
+
 
 
 
