@@ -414,33 +414,38 @@ button.click()
 
 time.sleep(5)
 
+try:
+    ovAanbieder = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div[7]/div/div[1]')
+    if ovAanbieder.is_displayed():
+        ovAanbieder.click()
+except:
+    pass
+
 ovInnovaCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div[7]/div[2]/div/div[8]/div/input')
 driver.execute_script("arguments[0].click();", ovInnovaCheckbox)
 
 time.sleep(2)
 
 #Meer informatie
-driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div/div[2]/div[2]/button').click()
-driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div[2]/button').click()
-
+driver.find_element_by_xpath("//*[contains(text(), 'Alle info')]").click()
 time.sleep(1)
 
 #Tarieven
-driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[2]/div/div[2]/div/div/div[1]').click()
-driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div/div[1]').click()
+driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
 
+time.sleep(3)
 """
 --------------
 Gegevens
 --------------
 """
+all_elements = driver.find_elements_by_class_name('sc-5mx0mx-2 fZtHaY').text
+print(all_elements)
 
-
-ovEnkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
-ovGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
-ovVastStroom = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[4]/span[2]').text
-ovVastGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[2]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[5]/span[2]').text
+ovEnkel, ovGas, ovVastStroom, ovVastGas = [all_elements[j] for j in (0, 1, 2, 3)]
 ovTerug = '-'
+
+print(ovEnkel, ovGas, ovVastStroom, ovVastGas)
 
 """
 --------------
