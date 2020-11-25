@@ -22,6 +22,14 @@ driver.maximize_window()
 actions = ActionChains(driver)
 time.sleep(3)
 
+def replaceKomma(value):
+    value = float(value.replace(',', '.'))
+    return value
+
+def deleteEuroSign(value):
+    value = value[1:]
+    return value
+
 """
 -------------------------------------
 Gaslicht.com
@@ -62,14 +70,6 @@ except:
     pass
 
 
-def replaceKomma(value):
-    value = float(value.replace(',', '.'))
-    return value
-
-def deleteEuroSign(value):
-    value = value[1:]
-    return value
-
 #Postcode
 gasLichtPostal = driver.find_element_by_id('postal').send_keys(postcode)
 gasLichtNmbr = driver.find_element_by_id('housenr').send_keys(huisNr)
@@ -94,22 +94,16 @@ vergelijkPrijs.click()
 time.sleep(5)
 
 try:
-    prijsDetails1 = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[2]/div[2]/ul/li[1]')
-    if prijsDetails1.is_displayed():
-        prijsDetails1.click()
-
-    prijsDetails2 = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[2]/div[2]/ul/li[1]')
-    if prijsDetails2.is_displayed():
-        prijsDetails2.click()
-
-    prijsDetails3 = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[2]/div[2]/ul/li[1]')
-    if prijsDetails3.is_displayed():
-        prijsDetails3.click()
+  prijsdetails = driver.find_elements_by_xpath("//*[contains(text(), 'Prijsdetails')]")
+  for x in range(0, len(prijsdetails)):
+      if prijsdetails[x].is_displayed():
+          prijsdetails[x].click()
 except:
+    print("ERROR - PRIJSDETAILS")
     pass
 
 
-time.sleep(2)
+time.sleep(5)
 
 """
 -------------------------------------
@@ -207,18 +201,12 @@ vergelijkPrijs.click()
 time.sleep(5)
 
 try:
-    prijsDetails1 = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[2]/div[2]/ul/li[1]')
-    if prijsDetails1.is_displayed():
-        prijsDetails1.click()
-
-    prijsDetails2 = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[2]/div[2]/ul/li[1]')
-    if prijsDetails2.is_displayed():
-        prijsDetails2.click()
-
-    prijsDetails3 = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[2]/div[2]/ul/li[1]')
-    if prijsDetails3.is_displayed():
-        prijsDetails3.click()
+  prijsdetails = driver.find_elements_by_xpath("//*[contains(text(), 'Prijsdetails')]")
+  for x in range(0, len(prijsdetails)):
+      if prijsdetails[x].is_displayed():
+          prijsdetails[x].click()
 except:
+    print("ERROR - PRIJSDETAILS")
     pass
 
 time.sleep(2)
@@ -303,10 +291,12 @@ driver.execute_script("arguments[0].click();", glOnbepaald)
 time.sleep(2)
 
 try:
-    prijsDetails = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol/li/div[2]/div[2]/ul/li[1]')
-    if prijsDetails.is_displayed():
-        prijsDetails.click()
+  prijsdetails = driver.find_elements_by_xpath("//*[contains(text(), 'Prijsdetails')]")
+  for x in range(0, len(prijsdetails)):
+      if prijsdetails[x].is_displayed():
+          prijsdetails[x].click()
 except:
+    print("ERROR - PRIJSDETAILS")
     pass
 
 time.sleep(3)
@@ -341,10 +331,12 @@ vergelijkPrijs.click()
 time.sleep(3)
 
 try:
-    prijsDetails = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol/li/div[2]/div[2]/ul/li[1]')
-    if prijsDetails.is_displayed():
-        prijsDetails.click()
+  prijsdetails = driver.find_elements_by_xpath("//*[contains(text(), 'Prijsdetails')]")
+  for x in range(0, len(prijsdetails)):
+      if prijsdetails[x].is_displayed():
+          prijsdetails[x].click()
 except:
+    print("ERROR - PRIJSDETAILS")
     pass
 
 time.sleep(2)
@@ -433,12 +425,22 @@ time.sleep(1)
 #Tarieven
 driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
 
-time.sleep(3)
+time.sleep(5)
 """
 --------------
 Gegevens
 --------------
 """
+
+try:
+  all_elements = driver.find_elements_by_class_name('sc-5mx0mx-2 fZtHaY')
+  for x in range(0, len(all_elements)):
+      if prijsdetails[x].is_displayed():
+          prijsdetails[x].click()
+except:
+    print("ERROR - PRIJSDETAILS")
+    pass
+
 all_elements = driver.find_elements_by_class_name('sc-5mx0mx-2 fZtHaY').text
 print(all_elements)
 
