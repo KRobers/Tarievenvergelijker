@@ -209,7 +209,7 @@ except:
     print("ERROR - PRIJSDETAILS")
     pass
 
-time.sleep(2)
+time.sleep(5)
 
 #1st Element
 glEU1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a').text
@@ -424,7 +424,6 @@ time.sleep(1)
 
 #Tarieven
 driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
-
 time.sleep(5)
 """
 --------------
@@ -432,22 +431,15 @@ Gegevens
 --------------
 """
 
-try:
-  all_elements = driver.find_elements_by_class_name('sc-5mx0mx-2 fZtHaY')
-  for x in range(0, len(all_elements)):
-      if prijsdetails[x].is_displayed():
-          prijsdetails[x].click()
-except:
-    print("ERROR - PRIJSDETAILS")
-    pass
+parent = driver.find_element_by_class_name('sc-5mx0mx-2 fZtHaY')
+child = parent.find_element_by_tag_name("span")
+print(child.text)
 
-all_elements = driver.find_elements_by_class_name('sc-5mx0mx-2 fZtHaY').text
-print(all_elements)
-
-ovEnkel, ovGas, ovVastStroom, ovVastGas = [all_elements[j] for j in (0, 1, 2, 3)]
-ovTerug = '-'
-
-print(ovEnkel, ovGas, ovVastStroom, ovVastGas)
+ovEnkel = "-"
+ovGas = "-"
+ovVastStroom = "-"
+ovVastGas = "-"
+ovTerug = "-"
 
 """
 --------------
