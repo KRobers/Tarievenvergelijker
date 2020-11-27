@@ -16,7 +16,7 @@ writerTarieven = pd.ExcelWriter(tarievenPath, engine='xlsxwriter')
 
 #Debugging
 gaslicht = input("Gaslicht y/n: ")
-overstappen = input("Overstappen y/n:")
+overstappen = input("Overstappen y/n: ")
 independer = input("Independer y/n: ")
 pricewise = input("Pricewise y/n: ")
 
@@ -607,6 +607,7 @@ if independer == 'y':
     parent = driver.find_element_by_id('product_1335')
     print("gevonden")
     meerinfo = parent.find_element_by_class_name("link-plus")
+    time.sleep()
     meerinfo.click()
     time.sleep(2)
     prijsdetails = parent.find_element_by_xpath("//*[contains(text(), 'Prijsdetails')]")
