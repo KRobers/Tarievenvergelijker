@@ -299,10 +299,9 @@ if gaslicht == "y":
     time.sleep(2)
 
     try:
-      prijsdetails = driver.find_elements_by_xpath("//*[contains(text(), 'Prijsdetails')]")
-      for x in range(0, len(prijsdetails)):
-          if prijsdetails[x].is_displayed():
-              prijsdetails[x].click()
+      prijsdetails = driver.find_element_by_xpath("//*[contains(text(), 'Prijsdetails')]")
+      prijsdetails.click()
+
     except:
         print("ERROR - PRIJSDETAILS")
         pass
@@ -492,9 +491,13 @@ if overstappen == "y":
     # Tarieven
     driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
     time.sleep(5)
+    try:
+        ovNormaal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+        ovDal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+    except:
+        ovNormaal = '-'
+        ovDal = '-'
 
-    ovNormaal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
-    ovDal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
     ovTerugNormaal = '-'
     ovTerugDal = '-'
 
@@ -613,6 +616,13 @@ if independer == 'y':
     prijsdetails = parent.find_element_by_xpath("//*[contains(text(), 'Prijsdetails')]")
     prijsdetails.click()
 
+"""
+-------------------------------------
+Pricewise.nl
+-------------------------------------
+"""
+
+
 if pricewise == "y":
 
     driver.get("https://www.pricewise.nl/energie-vergelijken/")
@@ -650,9 +660,12 @@ if pricewise == "y":
             pwCheckbox = driver.find_element_by_xpath('//*[@id="spchecked_false"]')
             driver.execute_script("arguments[0].click();", pwCheckbox)
 
-            driver.find_element_by_xpath('//*[@id="elecPeak_false"]').send_keys(verbruikNormaalTarief)
-            driver.find_element_by_xpath('//*[@id="elecOffPeak_false"]').send_keys(verbruikDalTarief)
-            driver.find_element_by_xpath('//*[@id="gas_false"]').send_keys(verbruikGas)
+            verbruik = driver.find_element_by_xpath('//*[@id="elecPeak_false"]').clear()
+            verbruik.send_keys(verbruikNormaalTarief)
+            verbruik = driver.find_element_by_xpath('//*[@id="elecOffPeak_false"]').clear()
+            verbruik.send_keys(verbruikDalTarief)
+            verbruik = driver.find_element_by_xpath('//*[@id="gas_false"]').clear()
+            verbruik.send_keys(verbruikGas)
 
             driver.find_element_by_xpath('//*[@id="elecPeaksp_false"]').send_keys(terugNormaalTarief)
             driver.find_element_by_xpath('//*[@id="elecOffPeaksp_false"]').send_keys(terugDaltarief)
