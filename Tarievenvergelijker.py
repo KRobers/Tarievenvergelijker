@@ -610,7 +610,7 @@ if independer == 'y':
     parent = driver.find_element_by_id('product_1335')
     print("gevonden")
     meerinfo = parent.find_element_by_class_name("link-plus")
-    time.sleep()
+    time.sleep(2)
     meerinfo.click()
     time.sleep(2)
     prijsdetails = parent.find_element_by_xpath("//*[contains(text(), 'Prijsdetails')]")
@@ -632,47 +632,118 @@ if pricewise == "y":
     driver.find_element_by_xpath('//*[@id="pc_false"]').send_keys(postcode)
     driver.find_element_by_xpath('//*[@id="hn_false"]').send_keys(huisNr)
 
-    try:
-        usgaeArea = driver.find_element_by_xpath('//*[@id="usageArea"]')
-        if usgaeArea.is_displayed():
-            pwCheckbox = driver.find_element_by_xpath('//*[@id="metertype_false"]')
-            driver.execute_script("arguments[0].click();", pwCheckbox)
 
-            pwCheckbox = driver.find_element_by_xpath('//*[@id="spchecked_false"]')
-            driver.execute_script("arguments[0].click();", pwCheckbox)
+    usgaeArea = driver.find_element_by_xpath('//*[@id="usageArea"]')
+    if usgaeArea.is_displayed():
+        pwCheckbox = driver.find_element_by_xpath('//*[@id="metertype_false"]')
+        driver.execute_script("arguments[0].click();", pwCheckbox)
 
-            driver.find_element_by_xpath('//*[@id="elecPeak_false"]').send_keys(verbruikNormaalTarief)
-            driver.find_element_by_xpath('//*[@id="elecOffPeak_false"]').send_keys(verbruikDalTarief)
-            driver.find_element_by_xpath('//*[@id="gas_false"]').send_keys(verbruikGas)
+        pwCheckbox = driver.find_element_by_xpath('//*[@id="spchecked_false"]')
+        driver.execute_script("arguments[0].click();", pwCheckbox)
 
-            driver.find_element_by_xpath('//*[@id="elecPeaksp_false"]').send_keys(terugNormaalTarief)
-            driver.find_element_by_xpath('//*[@id="elecOffPeaksp_false"]').send_keys(terugDaltarief)
+        verbruik = driver.find_element_by_xpath('//*[@id="elecPeak_false"]')
+        verbruik.clear()
+        verbruik.send_keys(verbruikNormaalTarief)
+        verbruik = driver.find_element_by_xpath('//*[@id="elecOffPeak_false"]')
+        verbruik.clear()
+        verbruik.send_keys(verbruikDalTarief)
+        verbruik = driver.find_element_by_xpath('//*[@id="gas_false"]')
+        verbruik.clear()
+        verbruik.send_keys(verbruikGas)
 
-            driver.find_element_by_xpath('//*[@id="en_0_btn_cta"]').click()
-        else:
-            driver.find_element_by_xpath('//*[@id="en_0_btn_manusg"]').click()
+        driver.find_element_by_xpath('//*[@id="elecPeaksp_false"]').send_keys(terugNormaalTarief)
+        driver.find_element_by_xpath('//*[@id="elecOffPeaksp_false"]').send_keys(terugDaltarief)
 
-            time.sleep(2)
+        select = Select(driver.find_element_by_name('suppliers'))
+        select.select_by_visible_text('Onbekend / Anders')
 
-            pwCheckbox = driver.find_element_by_xpath('//*[@id="metertype_false"]')
-            driver.execute_script("arguments[0].click();", pwCheckbox)
+        time.sleep(3)
+        driver.find_element_by_xpath('//*[@id="en_0_btn_cta"]').click()
+    else:
+        driver.find_element_by_xpath('//*[@id="en_0_btn_manusg"]').click() #klikt op de "vul meter typen in"
 
-            pwCheckbox = driver.find_element_by_xpath('//*[@id="spchecked_false"]')
-            driver.execute_script("arguments[0].click();", pwCheckbox)
+        time.sleep(2)
 
-            verbruik = driver.find_element_by_xpath('//*[@id="elecPeak_false"]').clear()
-            verbruik.send_keys(verbruikNormaalTarief)
-            verbruik = driver.find_element_by_xpath('//*[@id="elecOffPeak_false"]').clear()
-            verbruik.send_keys(verbruikDalTarief)
-            verbruik = driver.find_element_by_xpath('//*[@id="gas_false"]').clear()
-            verbruik.send_keys(verbruikGas)
+        pwCheckbox = driver.find_element_by_xpath('//*[@id="metertype_false"]') #dubbele of slimme meter
+        driver.execute_script("arguments[0].click();", pwCheckbox)
 
-            driver.find_element_by_xpath('//*[@id="elecPeaksp_false"]').send_keys(terugNormaalTarief)
-            driver.find_element_by_xpath('//*[@id="elecOffPeaksp_false"]').send_keys(terugDaltarief)
+        pwCheckbox = driver.find_element_by_xpath('//*[@id="spchecked_false"]') #zonnepanelekn
+        driver.execute_script("arguments[0].click();", pwCheckbox)
 
-            driver.find_element_by_xpath('//*[@id="en_0_btn_cta"]').click()
-    except:
-        pass
+        verbruik = driver.find_element_by_xpath('//*[@id="elecPeak_false"]')
+        verbruik.clear()
+        verbruik.send_keys(verbruikNormaalTarief)
+        verbruik = driver.find_element_by_xpath('//*[@id="elecOffPeak_false"]')
+        verbruik.clear()
+        verbruik.send_keys(verbruikDalTarief)
+        verbruik = driver.find_element_by_xpath('//*[@id="gas_false"]')
+        verbruik.clear()
+        verbruik.send_keys(verbruikGas)
+
+        driver.find_element_by_xpath('//*[@id="elecPeaksp_false"]').send_keys(terugNormaalTarief)
+        driver.find_element_by_xpath('//*[@id="elecOffPeaksp_false"]').send_keys(terugDaltarief)
+
+        select = Select(driver.find_element_by_name('suppliers'))
+        select.select_by_visible_text('Onbekend / Anders')
+
+        time.sleep(3)
+        driver.find_element_by_xpath('//*[@id="en_0_btn_cta"]').click()
+
+    time.sleep(5)
+
+    cookiebox = driver.find_element_by_xpath('//*[@id="lnkClose"]')
+    cookiebox.click()
+
+    driver.find_element_by_xpath('//*[@id="Leverancier"]/button').click()
+    time.sleep(2)
+    driver.find_element_by_xpath('//*[@id="Leverancier"]/div/div[17]/div[1]').click()
+
+    time.sleep(3)
+
+    #1 jaar
+    driver.find_element_by_xpath('//*[@id="en_1_btn_open_1"]/span[2]').click()
+
+    time.sleep(3)
+
+    pw1JaarNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
+    pw1JaarDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[6]/td[2]/span').text
+    pw1JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[10]/td[2]/span').text
+    pw1JaarTerugDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[11]/td[2]/span').text
+    pw1JaarGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/span').text
+    pw1JaarLeveringStroom = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[12]/td[2]/span').text
+    pw1JaarLeveringGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/span').text
+
+    print(pw1JaarNormaal, pw1JaarDal, pw1JaarTerugNormaal, pw1JaarTerugDal, pw1JaarGas, pw1JaarLeveringStroom, pw1JaarLeveringGas)
+
+    #3 Jaar
+    driver.find_element_by_xpath('//*[@id="en_1_btn_open_3"]/span[2]').click()
+
+    time.sleep(3)
+
+    pw3JaarNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
+    pw3JaarDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
+    pw3JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[10]/td[2]/span').text
+    pw3JaarTerugDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[11]/td[2]/span').text
+    pw3JaarGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/span').text
+    pw3JaarLeveringStroom = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[12]/td[2]/span').text
+    pw3JaarLeveringGas= driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/span').text
+
+    print(pw3JaarNormaal, pw3JaarDal, pw3JaarTerugNormaal, pw3JaarTerugDal, pw3JaarGas, pw3JaarLeveringStroom, pw3JaarLeveringGas)
+
+    #Model
+    driver.find_element_by_xpath('//*[@id="en_1_btn_open_4"]/span[2]').click()
+
+    time.sleep(3)
+
+    pwModelNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
+    pwModelDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[6]/td[2]/span').text
+    pwModelTerugNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[10]/td[2]/span').text
+    pwModelTerugDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[11]/td[2]/span').text
+    pwModelGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/span').text
+    pwModelLeveringStroom = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[12]/td[2]/span').text
+    pwModelLeveringGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/span').text
+
+    print(pwModelNormaal, pwModelDal, pwModelTerugNormaal, pwModelTerugDal, pwModelGas, pwModelLeveringStroom, pwModelLeveringGas)
 
 
 else:
