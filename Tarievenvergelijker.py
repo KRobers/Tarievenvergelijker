@@ -426,6 +426,11 @@ if overstappen == "y":
 
     time.sleep(2)
 
+    ovInnovaCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div[1]/div[2]/div/div[1]/div/div/div')
+    driver.execute_script("arguments[0].click();", ovInnovaCheckbox)
+
+    time.sleep(2)
+
     #Meer informatie
     driver.find_element_by_xpath("//*[contains(text(), 'Alle info')]").click()
     time.sleep(1)
@@ -433,6 +438,9 @@ if overstappen == "y":
     #Tarieven
     driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
     time.sleep(5)
+
+    test = input("ndf")
+
     """
     --------------
     Gegevens
