@@ -427,7 +427,7 @@ if overstappen == "y":
     time.sleep(2)
 
     ovInnovaCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div[1]/div[2]/div/div[1]/div/div/div')
-    driver.execute_script("arguments[0].click();", ovInnovaCheckbox)
+    driver.execute_script("arguments[0].click();", ovInnovaCheckbox) # 1 jaar
 
     time.sleep(2)
 
@@ -439,29 +439,27 @@ if overstappen == "y":
     driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
     time.sleep(5)
 
-    test = input("ndf")
-
     """
     --------------
     Gegevens
     --------------
     """
     try:
-        parent = driver.find_element_by_class_name('sc-5mx0mx-2 fZtHaY')
-        child = parent.find_element_by_tag_name("span")
-        if parent.is_displayed():
-            print("Displayed")
-        else:
-            print("Niet displayed")
-        print(child.text)
+        ov1JaarEnkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+        ov1JaarGas =  driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+        ov1JaarVastStroom =  driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[4]/span[2]').text
+        ov1JaarVastGas =  driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+        ovTerug =  "-"
     except:
-        pass
-    ovEnkel = "-"
-    ovGas = "-"
-    ovVastStroom = "-"
-    ovVastGas = "-"
-    ovTerug = "-"
+        ov1JaarEnkel = "-"
+        ov1JaarGas = "-"
+        ov1JaarVastGas = "-"
+        ov1JaarVastStroom = "-"
+        ovTerug = "-"
+        print("ERROR - GEGEVENS VERKRIJGEN // OV1J")
 
+
+    print(ov1JaarEnkel, ov1JaarGas ,ov1JaarVastStroom, ov1JaarVastGas, ovTerug)
     """
     --------------
     Wijziging Gegevens
@@ -499,18 +497,96 @@ if overstappen == "y":
     # Tarieven
     driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
     time.sleep(5)
+
+#---------------------------------------------------------
+
     try:
-        ovNormaal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
-        ovDal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[3]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+
+        ov1JaarNormaal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+        ov1JaarDal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
     except:
-        ovNormaal = '-'
-        ovDal = '-'
+        ov1JaarNormaal = "-"
+        ov1JaarDal = "-"
+        print("ERROR - GEGEVENS VERKRIJGEN // OV1JDBL")
 
     ovTerugNormaal = '-'
     ovTerugDal = '-'
 
-    print(ovEnkel, ovNormaal, ovDal, ovGas, ovVastStroom, ovVastGas, ovTerug, ovTerugNormaal, ovTerugDal)
+    print(ov1JaarEnkel, ov1JaarNormaal, ov1JaarDal, ov1JaarGas, ov1JaarVastStroom, ov1JaarVastGas, ovTerug, ovTerugNormaal, ovTerugDal)
 
+#----------------------------------------------------------
+    #3 jaar dubbele meter
+
+    ovCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div[1]/div[2]/div/div[3]/div/div/div')
+    driver.execute_script("arguments[0].click();", ovCheckbox)  # 3 jaar checkbox
+
+    time.sleep(3)
+
+    # Meer informatie
+    driver.find_element_by_xpath("//*[contains(text(), 'Alle info')]").click()
+    time.sleep(1)
+
+    # Tarieven
+    driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
+
+    try:
+        ov3JaarNormaal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+        ov3JaarDal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+    except:
+        ov3JaarNormaal = "-"
+        ov3JaarDal = "-"
+        print("ERROR - GEGEVENS VERKRIJGEN // OV3JDBL")
+
+
+#-------------------------------------------------------
+
+    #wijzig naar 3 jaar enkel
+
+    wijzigButton = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[1]/div[2]/button')
+    wijzigButton.click()
+
+    ovDubbeleCheckbox = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div[2]/div[2]/div[3]/form/div[5]/div/div/input')
+    driver.execute_script("arguments[0].click();", ovDubbeleCheckbox)
+
+    wijzigButton = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div[2]/div[2]/div[3]/form/div[10]/div/button')
+    wijzigButton.click()
+
+#---------------------------------
+
+    #3 jaar enkel
+
+    ovCheckbox = driver.find_element_by_xpath(
+        '//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div[1]/div[2]/div/div[3]/div/div/div')
+    driver.execute_script("arguments[0].click();", ovCheckbox)  # 3 jaar checkbox
+
+    time.sleep(3)
+
+    ovInnovaCheckbox = driver.find_element_by_xpath(
+        '//*[@id="esos-content"]/div/div/div/div/div/div[1]/div/div[2]/div/div/div/div[7]/div[2]/div/div[8]/div/input')
+    driver.execute_script("arguments[0].click();", ovInnovaCheckbox)
+
+    time.sleep(3)
+
+    # Meer informatie
+    driver.find_element_by_xpath("//*[contains(text(), 'Alle info')]").click()
+    time.sleep(1)
+
+    # Tarieven
+    driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
+
+    try:
+        ov3JaarEnkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+        ov3JaarGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+        ov3JaarLeveringStroom = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[4]/span[2]').text
+        ov3jaarLeveringGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[5]/span[2]').text
+    except:
+        ov3JaarEnkel = "-"
+        ov3JaarGas = "-"
+        ov3JaarLeveringStroom = "-"
+        ov3jaarLeveringGas = "-"
+        print("ERROR - GEGEVENS VERKRIJGEN // OV3J")
+
+    print(ov3JaarNormaal, ov3JaarDal, ov3JaarEnkel, ov3JaarGas, ov3JaarLeveringStroom, ov3jaarLeveringGas )
 """
 -------------------------------------
 Independer.nl
@@ -713,13 +789,29 @@ if pricewise == "y":
 
     time.sleep(3)
 
-    pw1JaarNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
-    pw1JaarDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[6]/td[2]/span').text
-    pw1JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[10]/td[2]/span').text
-    pw1JaarTerugDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[11]/td[2]/span').text
-    pw1JaarGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/span').text
-    pw1JaarLeveringStroom = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[12]/td[2]/span').text
-    pw1JaarLeveringGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/span').text
+    tooltipster = driver.find_element_by_class_name('tooltipseter-content')
+    if tooltipster.is_displayed():
+        driver.find_element_by_class_name('tt-close').click()
+    else:
+        pass
+    try:
+        pw1JaarNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
+        pw1JaarDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[6]/td[2]/span').text
+        pw1JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[10]/td[2]/span').text
+        time.sleep(2)
+        pw1JaarTerugDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[11]/td[2]/span').text
+        pw1JaarGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/span').text
+        pw1JaarLeveringStroom = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[12]/td[2]/span').text
+        pw1JaarLeveringGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/span').text
+    except:
+        pw1JaarNormaal = "-"
+        pw1JaarDal = "-"
+        pw1JaarTerugNormaal = "-"
+        pw1JaarTerugDal = "-"
+        pw1JaarGas ="-"
+        pw1JaarLeveringStroom ="-"
+        pw1JaarLeveringGas ="-"
+        print("ERROR - GEGEVENS VERKRIJGEN // PW1JDBL")
 
     print(pw1JaarNormaal, pw1JaarDal, pw1JaarTerugNormaal, pw1JaarTerugDal, pw1JaarGas, pw1JaarLeveringStroom, pw1JaarLeveringGas)
 
@@ -728,13 +820,24 @@ if pricewise == "y":
 
     time.sleep(3)
 
-    pw3JaarNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
-    pw3JaarDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
-    pw3JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[10]/td[2]/span').text
-    pw3JaarTerugDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[11]/td[2]/span').text
-    pw3JaarGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/span').text
-    pw3JaarLeveringStroom = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[12]/td[2]/span').text
-    pw3JaarLeveringGas= driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/span').text
+    try:
+        pw3JaarNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
+        pw3JaarDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
+        pw3JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[10]/td[2]/span').text
+        pw3JaarTerugDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[11]/td[2]/span').text
+        pw3JaarGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/span').text
+        pw3JaarLeveringStroom = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[12]/td[2]/span').text
+        pw3JaarLeveringGas= driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/span').text
+    except:
+        pw3JaarNormaal = "-"
+        pw3JaarDal = "-"
+        pw3JaarTerugNormaal = "-"
+        pw3JaarTerugDal ="-"
+        pw3JaarGas = "-"
+        pw3JaarLeveringStroom ="-"
+        pw3JaarLeveringGas = "-"
+        print("ERROR - GEGEVENS VERKRIJGEN // PW3JDBL")
+
 
     print(pw3JaarNormaal, pw3JaarDal, pw3JaarTerugNormaal, pw3JaarTerugDal, pw3JaarGas, pw3JaarLeveringStroom, pw3JaarLeveringGas)
 
