@@ -44,11 +44,14 @@ if gaslicht == "y":
     driver.get('https://www.gaslicht.com/energievergelijker')
     driver.maximize_window()
     #Searches for the cookiebox
+
+    time.sleep(5)
     try:
         cookiesBox = driver.find_element_by_id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll")
         if cookiesBox.is_displayed(): #if displayed click the box
             cookiesBox.click()
     except:
+        print("PASS - COOKIEBOX")
         pass
 
     #Searches for the cookiebox
@@ -57,11 +60,13 @@ if gaslicht == "y":
         if clickLabel.is_displayed(): #if displayed click the box
             clickLabel.click()
     except:
+        print("PASS - COOKIEBOX 2 ")
         pass
     try:
         openOptions = driver.find_element_by_css_selector(".c-gl-compare-widget__usage-link.c-link.c-link--cta.js-compare-widget-trigger.custom")
         openOptions.click()
     except:
+        print("PASS - COMPARE WIDGET")
         pass
 
     #Checkbox Innova
@@ -74,8 +79,10 @@ if gaslicht == "y":
         if expandUsage.is_displayed():
             expandUsage.click()
     except:
+        print("PASS - GEBRUIK ZELF INVULLEN")
         pass
 
+    time.sleep(5)
 
     #Postcode
     gasLichtPostal = driver.find_element_by_id('postal').send_keys(postcode)
@@ -788,12 +795,14 @@ if pricewise == "y":
     driver.find_element_by_xpath('//*[@id="en_1_btn_open_1"]/span[2]').click()
 
     time.sleep(3)
-
-    tooltipster = driver.find_element_by_class_name('tooltipseter-content')
-    if tooltipster.is_displayed():
-        driver.find_element_by_class_name('tt-close').click()
-    else:
+    try:
+        tooltipster = driver.find_element_by_class_name('tooltipseter-content')
+        if tooltipster.is_displayed():
+            driver.find_element_by_class_name('tt-close').click()
+    except:
+        print("PASS - TOOLTIPSTER")
         pass
+
     try:
         pw1JaarNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
         pw1JaarDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[6]/td[2]/span').text
@@ -846,16 +855,68 @@ if pricewise == "y":
 
     time.sleep(3)
 
-    pwModelNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
-    pwModelDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[6]/td[2]/span').text
-    pwModelTerugNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[10]/td[2]/span').text
-    pwModelTerugDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[11]/td[2]/span').text
-    pwModelGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/span').text
-    pwModelLeveringStroom = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[12]/td[2]/span').text
-    pwModelLeveringGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/span').text
+    try:
+        pwModelNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[3]/td[2]/span').text
+        pwModelDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[6]/td[2]/span').text
+        pwModelTerugNormaal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[10]/td[2]/span').text
+        pwModelTerugDal = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[11]/td[2]/span').text
+        pwModelGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[1]/td[2]/span').text
+        pwModelLeveringStroom = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[12]/td[2]/span').text
+        pwModelLeveringGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T2_C2-false"]/div[4]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/span').text
 
-    print(pwModelNormaal, pwModelDal, pwModelTerugNormaal, pwModelTerugDal, pwModelGas, pwModelLeveringStroom, pwModelLeveringGas)
+        print(pwModelNormaal, pwModelDal, pwModelTerugNormaal, pwModelTerugDal, pwModelGas, pwModelLeveringStroom, pwModelLeveringGas)
+    except:
+        pwModelNormaal = "-"
+        pwModelDal = "-"
+        pwModelTerugNormaal = "-"
+        pwModelTerugDal = "-"
+        pwModelGas = "-"
+        pwModelLeveringStroom = "-"
+        pwModelLeveringGas = "-"
+        print("ERROR - GEGEVENS VERKRIJGEN // PWMDLDBL")
 
+
+    #wijzig
+
+    driver.find_element_by_xpath('//*[@id="mainForm"]/div[3]/div/div/div[2]/div/div[3]/div[1]/div[1]/div[2]/div/div[7]/div/a').click() #wijzig button
+    time.sleep(2)
+    driver.find_element_by_xpath('//*[@id="metertype_true"]').click()
+    time.sleep(2)
+    driver.find_element_by_xpath('//*[@id="mp_body"]/div[9]/div/div/div[3]/a[1]').click()
+
+    #zonder dubele meter
+    time.sleep(5)
+
+    #1 jaar
+    driver.find_element_by_xpath('//*[@id="en_1_btn_open_1"]/span[2]').click()
+    try:
+        pw1JaarEnkel = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T1_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[1]/td[2]/span').text
+        pw1JaarTerugEnkel = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T1_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[8]/td[2]/span').text
+    except:
+        print("ERROR - GEGEVENS VERKRIJGEN PW1JNKL")
+        pw1JaarEnkel = "-"
+        pw1JaarTerugEnkel = "-"
+
+    # 3 Jaar
+    driver.find_element_by_xpath('//*[@id="en_1_btn_open_3"]/span[2]').click()
+    try:
+        pw3JaarEnkel = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T1_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[1]/td[2]/span').text
+        pw3JaarTerugEnkel = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022605708_PG1022605709_T1_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[8]/td[2]/span').text
+    except:
+        print("ERROR - GEGEVENS VERKRIJGEN PW3JNKL")
+        pw3JaarEnkel = "-"
+        pw3JaarTerugEnkel = "-"
+
+
+    # Model
+    driver.find_element_by_xpath('//*[@id="en_1_btn_open_4"]/span[2]').click()
+    try:
+        pwModelEnkel = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T1_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[1]/td[2]/span').text
+        pwModelTerugEnkel = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1006996_PG1006995_T1_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[8]/td[2]/span').text
+    except:
+        print("ERROR - GEGEVENS VERKRIJGEN PWMDLNKL")
+        pwModelEnkel = "-"
+        pwModelTerugEnkel = "-"
 
 else:
     print('Klaar')
