@@ -7,6 +7,18 @@ import os
 import time
 import xlsxwriter
 
+
+class Product:
+    enkel = ""
+    normaal = ""
+    dal = ""
+    vastrechtStroom = ""
+    vastrechtGas = ""
+    teruglever = ""
+    terugleverNormaal = ""
+    terugleverDal = ""
+    gas = ""
+
 #defines path location
 path = 'C:\\Users\\kajro\\Documents\\Innova\\Pythonscripts\\Tarievenvergelijker\\'
 
@@ -34,6 +46,36 @@ def deleteEuroSign(value):
     value = value[1:]
     return value
 
+class product:
+    enkel = ""
+    normaal = ""
+    dal = ""
+    vastrecht = ""
+    teruglever = ""
+    terugleverNormaal = ""
+    terugleverDal = ""
+    gas = ""
+
+#Initialize objects
+
+#Gaslicht
+glEU1 = product()
+glEU3 = product()
+glNL1 = product()
+glMOD = product()
+
+#Pricewise
+pwEU1 = product()
+pwEU3 = product()
+pwNL1 = product()
+pwMOD = product()
+
+#Overstappen
+ovEU1 = product()
+ovEU3 = product()
+ovNL1 = product()
+ovMOD = product()
+
 """
 -------------------------------------
 Gaslicht.com
@@ -43,6 +85,7 @@ Gaslicht.com
 if gaslicht == "y":
     driver.get('https://www.gaslicht.com/energievergelijker')
     driver.maximize_window()
+    time.sleep(3)
     #Searches for the cookiebox
 
     time.sleep(5)
@@ -102,8 +145,11 @@ if gaslicht == "y":
     gasLichtTerug.clear()
     gasLichtTerug.send_keys(terugLevering)
 
-    vergelijkPrijs = driver.find_element_by_xpath("/html/body/section/section[1]/div[2]/div/div/aside/div[1]/div/div/div[2]/form/div/div[2]/button")
-    vergelijkPrijs.click()
+    try:
+        vergelijkPrijs = driver.find_element_by_xpath("/html/body/section/section[1]/div[2]/div/div/aside/div[1]/div/div/div[2]/form/div/div[2]/button")
+        vergelijkPrijs.click()
+    except:
+        pass
 
     time.sleep(5)
 
@@ -131,19 +177,9 @@ if gaslicht == "y":
     EU1Jaar = EU1JaarElement.text
     print(EU1Jaar)
 
-    EU1JaarEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
-    EU1JaarTerug = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
-    EU1JaarGasEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
-    EU1JaarVast = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
-    print(EU1JaarEnkel, EU1JaarTerug, EU1JaarGasEnkel, EU1JaarVast)
-
-    #Refactoring
-    EU1JaarVast = EU1JaarVast[1:] #replaces the €
-    EU1JaarVast = float(EU1JaarVast.replace(',','.'))
-
-    EU1JaarVastStroom = EU1JaarVast / 2
-    EU1JaarVastGas = EU1JaarVast / 2
-
+    glEU1.enkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+    glEU1.teruglever = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
+    glEU1.gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
 
     #Het tweede element
     NED1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[1]/div[1]/div/div[4]/a')
@@ -153,16 +189,7 @@ if gaslicht == "y":
     NED1JaarEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[1]/div').text
     NED1JaarTerug = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[2]/div').text
     NED1JaarGasEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[3]/div').text
-    NED1JaarVast = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[4]/div').text
-    print(NED1JaarEnkel, NED1JaarTerug, NED1JaarGasEnkel, NED1JaarVast)
-
-    #Refactoring
-    NED1JaarVast = NED1JaarVast[1:] #replaces the €
-    NED1JaarVast = float(NED1JaarVast.replace(',','.'))
-
-    NED1JaarVastStroom = NED1JaarVast / 2
-    NED1JaarVastGas = NED1JaarVast / 2
-
+    print(NED1JaarEnkel, NED1JaarTerug, NED1JaarGasEnkel)
 
     #Het derde element
     EU3JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[1]/div[1]/div/div[4]/a')
@@ -172,15 +199,7 @@ if gaslicht == "y":
     EU3JaarEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[1]/div').text
     EU3JaarTerug = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[2]/div').text
     EU3JaarGasEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[3]/div').text
-    EU3JaarVast = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[4]/div').text
-    print(EU3JaarEnkel, EU3JaarTerug, EU3JaarGasEnkel, EU3JaarVast)
-
-    #Refactoring
-    EU3JaarVast = EU3JaarVast[1:] #replaces the €
-    EU3JaarVast = float(EU3JaarVast.replace(',','.'))
-
-    EU3JaarVastStroom = EU3JaarVast / 2
-    EU3JaarVastGas = EU3JaarVast / 2
+    print(EU3JaarEnkel, EU3JaarTerug, EU3JaarGasEnkel)
 
     """
     -------------------------------------
