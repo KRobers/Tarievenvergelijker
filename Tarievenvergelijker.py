@@ -7,18 +7,6 @@ import os
 import time
 import xlsxwriter
 
-
-class Product:
-    enkel = ""
-    normaal = ""
-    dal = ""
-    vastrechtStroom = ""
-    vastrechtGas = ""
-    teruglever = ""
-    terugleverNormaal = ""
-    terugleverDal = ""
-    gas = ""
-
 #defines path location
 path = 'C:\\Users\\kajro\\Documents\\Innova\\Pythonscripts\\Tarievenvergelijker\\'
 
@@ -75,6 +63,12 @@ ovEU1 = product()
 ovEU3 = product()
 ovNL1 = product()
 ovMOD = product()
+
+#Independer
+inEU1 = product()
+inEU3 = product()
+inNL1 = product()
+inMOD = product()
 
 """
 -------------------------------------
@@ -186,20 +180,19 @@ if gaslicht == "y":
     NED1Jaar = NED1JaarElement.text
     print(NED1Jaar)
 
-    NED1JaarEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[1]/div').text
-    NED1JaarTerug = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[2]/div').text
-    NED1JaarGasEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[3]/div').text
-    print(NED1JaarEnkel, NED1JaarTerug, NED1JaarGasEnkel)
+    glNL1.enkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[1]/div').text
+    glNL1.teruglever = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[2]/div').text
+    glNL1.gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[3]/div').text
 
     #Het derde element
     EU3JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[1]/div[1]/div/div[4]/a')
     EU3Jaar = EU3JaarElement.text
     print(EU3Jaar)
 
-    EU3JaarEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[1]/div').text
-    EU3JaarTerug = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[2]/div').text
-    EU3JaarGasEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[3]/div').text
-    print(EU3JaarEnkel, EU3JaarTerug, EU3JaarGasEnkel)
+    glEU3.enkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[1]/div').text
+    glEU3.teruglever = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[2]/div').text
+    glEU3.gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[3]/div').text
+
 
     """
     -------------------------------------
@@ -249,51 +242,28 @@ if gaslicht == "y":
     glEU1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[1]/div[1]/div[1]/div/div[4]/a').text
     print(glEU1JaarElement)#Tijdelijk
 
-    glEU1JaarNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
-    glEU1JaarDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
-    glEU1JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
-    glEU1JaarTerugDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
-    glEU1JaarGasDubbel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[5]/div').text
-
-    #Tijdelijk
-    print(glEU1JaarNormaal,
-    glEU1JaarDal,
-    glEU1JaarTerugNormaal,
-    glEU1JaarTerugDal,
-    glEU1JaarGasDubbel)
+    glEU1.normaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+    glEU1.dal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
+    glEU1.terugleverNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
+    glEU1.terugleverDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
 
     #2nd Element
     NED1JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[2]/div[1]/div[1]/div/div[4]/a').text
     print(NED1JaarElement)#Tijdelijk
 
-    NED1JaarNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[1]/div').text
-    NED1JaarDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[2]/div').text
-    NED1JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[3]/div').text
-    NED1JaarTerugDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[4]/div').text
-    NED1JaarGasDubbel = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[5]/div').text
-
-    #Tijdelijk
-    print(NED1JaarNormaal,
-    NED1JaarDal,
-    NED1JaarTerugNormaal,
-    NED1JaarTerugDal,
-    NED1JaarGasDubbel)
+    glNL1.normaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[1]/div').text
+    glNL1.dal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[2]/div').text
+    glNL1.terugleverNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[3]/div').text
+    glNL1.terugleverDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab2"]/div[1]/div[2]/div[4]/div').text
 
     EU3JaarElement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol[2]/li[3]/div[1]/div[1]/div/div[4]/a').text
     print(EU3JaarElement)#Tijdelijk
 
-    EU3JaarNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[1]/div').text
-    EU3JaarDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[2]/div').text
-    EU3JaarTerugNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[3]/div').text
-    EU3JaarTerugDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[4]/div').text
-    EU3JaarGasDubbel = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[5]/div').text
+    glEU3.normaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[1]/div').text
+    glEU3.dal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[2]/div').text
+    glEU3.terugleverNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[3]/div').text
+    glEU3.terugleverDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab3"]/div[1]/div[2]/div[4]/div').text
 
-    #Tijdelijk
-    print(EU3JaarNormaal,
-    EU3JaarDal,
-    EU3JaarTerugNormaal,
-    EU3JaarTerugDal,
-    EU3JaarGasDubbel)
 
     """
     -------------------------------------
@@ -337,10 +307,10 @@ if gaslicht == "y":
     glModelELement = driver.find_element_by_xpath('//*[@id="js-async-content"]/div[2]/ol/li/div[1]/div[1]/div/div[4]/a').text
     print(glModelELement)
 
-    glModelNormaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
-    glModelDal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
-    glModelGas = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
-    glModelLever = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
+    glMOD.normaal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+    glMOD.dal = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[2]/div').text
+    glMOD.gas = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[3]/div').text
+    glMOD.teruglever = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[4]/div').text
 
     #Enkele meter
 
@@ -374,9 +344,9 @@ if gaslicht == "y":
 
     time.sleep(2)
 
-    glModelEnkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
+    glMOD.enkel = driver.find_element_by_xpath('//*[@id="js-async-content-tab1"]/div[1]/div[2]/div[1]/div').text
 
-    print(glModelEnkel, glModelNormaal, glModelDal, glModelGas, glModelLever)
+
 
 """
 -------------------------------------
@@ -390,9 +360,9 @@ if overstappen == "y":
     time.sleep(3)
 
     #Eerste scherm
-    driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[1]/div/div[1]/input').send_keys(postcode)
-    driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[1]/div/div[1]/div[2]/div/div[1]/div/div[1]/div/input').send_keys(huisNr)
-    button = driver.find_element_by_xpath('//*[@id="esos-widget"]/div/div/form/div/div/div[3]/div/button')
+    driver.find_element_by_name('postcode').send_keys(postcode)
+    driver.find_element_by_name('housenumber').send_keys(huisNr)
+    button = driver.find_element_by_xpath('//*[@id="esos-widget"]/div/form/div/div/div[3]/div/button')
     time.sleep(3)
     button.click()
     time.sleep(2)
@@ -471,21 +441,13 @@ if overstappen == "y":
     --------------
     """
     try:
-        ov1JaarEnkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
-        ov1JaarGas =  driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
-        ov1JaarVastStroom =  driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[4]/span[2]').text
-        ov1JaarVastGas =  driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
-        ovTerug =  "-"
+        ovEU1.enkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+        ovEU1.gas =  driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+        ovEU1.vastrecht =  driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[4]/span[2]').text
+        ovEU1.teruglever =  "-"
     except:
-        ov1JaarEnkel = "-"
-        ov1JaarGas = "-"
-        ov1JaarVastGas = "-"
-        ov1JaarVastStroom = "-"
-        ovTerug = "-"
         print("ERROR - GEGEVENS VERKRIJGEN // OV1J")
 
-
-    print(ov1JaarEnkel, ov1JaarGas ,ov1JaarVastStroom, ov1JaarVastGas, ovTerug)
     """
     --------------
     Wijziging Gegevens
@@ -528,17 +490,12 @@ if overstappen == "y":
 
     try:
 
-        ov1JaarNormaal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
-        ov1JaarDal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+        ovEU1.normaal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+        ovEU1.dal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div[1]/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
     except:
-        ov1JaarNormaal = "-"
-        ov1JaarDal = "-"
         print("ERROR - GEGEVENS VERKRIJGEN // OV1JDBL")
 
-    ovTerugNormaal = '-'
-    ovTerugDal = '-'
 
-    print(ov1JaarEnkel, ov1JaarNormaal, ov1JaarDal, ov1JaarGas, ov1JaarVastStroom, ov1JaarVastGas, ovTerug, ovTerugNormaal, ovTerugDal)
 
 #----------------------------------------------------------
     #3 jaar dubbele meter
@@ -556,11 +513,9 @@ if overstappen == "y":
     driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
 
     try:
-        ov3JaarNormaal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
-        ov3JaarDal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+        ovEU3.normaal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+        ovEU3.dal = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
     except:
-        ov3JaarNormaal = "-"
-        ov3JaarDal = "-"
         print("ERROR - GEGEVENS VERKRIJGEN // OV3JDBL")
 
 
@@ -601,18 +556,12 @@ if overstappen == "y":
     driver.find_element_by_xpath("//*[contains(text(), 'Tarieven & kosten')]").click()
 
     try:
-        ov3JaarEnkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
-        ov3JaarGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
-        ov3JaarLeveringStroom = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[4]/span[2]').text
-        ov3jaarLeveringGas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[5]/span[2]').text
+        ovEU3.enkel = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[2]/span[2]').text
+        ovEU3.gas = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[3]/span[2]').text
+        ovEU3.vastrecht = driver.find_element_by_xpath('//*[@id="esos-content"]/div/div/div/div/div/div[2]/div[4]/div/div/div[2]/div/div[2]/div/div/div[1]/div[4]/span[2]').text
     except:
-        ov3JaarEnkel = "-"
-        ov3JaarGas = "-"
-        ov3JaarLeveringStroom = "-"
-        ov3jaarLeveringGas = "-"
         print("ERROR - GEGEVENS VERKRIJGEN // OV3J")
 
-    print(ov3JaarNormaal, ov3JaarDal, ov3JaarEnkel, ov3JaarGas, ov3JaarLeveringStroom, ov3jaarLeveringGas )
 """
 -------------------------------------
 Independer.nl
@@ -801,9 +750,6 @@ if pricewise == "y":
 
     time.sleep(5)
 
-    cookiebox = driver.find_element_by_xpath('//*[@id="lnkClose"]')
-    cookiebox.click()
-
     driver.find_element_by_xpath('//*[@id="Leverancier"]/button').click()
     time.sleep(2)
     driver.find_element_by_xpath('//*[@id="Leverancier"]/div/div[17]/div[1]').click()
@@ -832,16 +778,7 @@ if pricewise == "y":
         pw1JaarLeveringStroom = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[1]/table/tbody/tr[12]/td[2]/span').text
         pw1JaarLeveringGas = driver.find_element_by_xpath('//*[@id="scrollto-M1_S1136_PE1022596234_PG1022596235_T2_C2-false"]/div[5]/div[3]/div/div/div[3]/div/div[2]/table/tbody/tr[2]/td[2]/span').text
     except:
-        pw1JaarNormaal = "-"
-        pw1JaarDal = "-"
-        pw1JaarTerugNormaal = "-"
-        pw1JaarTerugDal = "-"
-        pw1JaarGas ="-"
-        pw1JaarLeveringStroom ="-"
-        pw1JaarLeveringGas ="-"
         print("ERROR - GEGEVENS VERKRIJGEN // PW1JDBL")
-
-    print(pw1JaarNormaal, pw1JaarDal, pw1JaarTerugNormaal, pw1JaarTerugDal, pw1JaarGas, pw1JaarLeveringStroom, pw1JaarLeveringGas)
 
     #3 Jaar
     driver.find_element_by_xpath('//*[@id="en_1_btn_open_3"]/span[2]').click()
@@ -941,34 +878,70 @@ else:
     print('Klaar')
 
 
+#To EXCEl
 
-
-
-
-""" 
-#Creates the dataframe for the Excel file
-tableTarieven = pd.DataFrame(data={
-                              'Enkel':[glEU1JaarEnkel],
-                              'Normaal':[glEU1JaarNormaal],
-                              'Dal':[glEU1JaarDal],
-                              'GasEnkel':[glEU1JaarGasEnkel],
-                              'GasDubbel':[glEU1JaarGasDubbel],
-                              'Vastrecht Stroom':[glEU1JaarVastStroom],
-                              'Vastrecht gas':[glEU1JaarVastGas],
-                              'Teruglevertarief':[glEU1JaarTerug],
-                              'Teruglevertarief Normaal':[glEU1JaarTerugNormaal],
-                              'Teruglevertarief Dal':[glEU1JaarTerugDal]},
+#EU1
+tableEU1 = pd.DataFrame(data={
+                              'Enkel':[glEU1.enkel, pwEU1.enkel, ovEU1.enkel, inEU1.enkel],
+                              'Normaal':[glEU1.normaal, pwEU1.normaal, ovEU1.normaal, inEU1.normaal],
+                              'Dal':[glEU1.dal, pwEU1.dal, ovEU1.dal, inEU1.dal],
+                              'Gas':[glEU1.gas, pwEU1.gas, ovEU1.gas, inEU1.gas],
+                              'Vastrecht Stroom':[glEU1.vastrecht, pwEU1.vastrecht, ovEU1.vastrecht, inEU1.vastrecht],
+                              'Vastrecht gas':[glEU1.vastrecht, pwEU1.vastrecht, ovEU1.vastrecht, inEU1.vastrecht],
+                              'Teruglevertarief':[glEU1.teruglever, pwEU1.teruglever, ovEU1.teruglever, inEU1.teruglever],
+                              'Teruglevertarief Normaal':[glEU1.terugleverNormaal, pwEU1.terugleverNormaal, ovEU1.terugleverNormaal, inEU1.terugleverNormaal],
+                              'Teruglevertarief Dal':[glEU1.terugleverDal, pwEU1.terugleverDal, ovEU1.terugleverDal, inEU1.terugleverDal]},
                              index=['Gaslicht.com', 'Pricewise.nl', 'Overstappen.nl', 'Independer.nl' ])
+tableEU1.to_excel(writerTarieven, sheet_name='EU1', index=True,)
+writerTarieven.save()
 
+#EU3
+tableEU3 = pd.DataFrame(data={
+                              'Enkel':[glEU3.enkel, pwEU3.enkel, ovEU3.enkel, inEU3.enkel],
+                              'Normaal':[glEU3.normaal, pwEU3.normaal, ovEU3.normaal, inEU3.normaal],
+                              'Dal':[glEU3.dal, pwEU3.dal, ovEU3.dal, inEU3.dal],
+                              'Gas':[glEU3.gas, pwEU3.gas, ovEU3.gas, inEU3.gas],
+                              'Vastrecht Stroom':[glEU3.vastrecht, pwEU3.vastrecht, ovEU3.vastrecht, inEU3.vastrecht],
+                              'Vastrecht gas':[glEU3.vastrecht, pwEU3.vastrecht, ovEU3.vastrecht, inEU3.vastrecht],
+                              'Teruglevertarief':[glEU3.teruglever, pwEU3.teruglever, ovEU3.teruglever, inEU3.teruglever],
+                              'Teruglevertarief Normaal':[glEU3.terugleverNormaal, pwEU3.terugleverNormaal, ovEU3.terugleverNormaal, inEU3.terugleverNormaal],
+                              'Teruglevertarief Dal':[glEU3.terugleverDal, pwEU3.terugleverDal, ovEU3.terugleverDal, inEU3.terugleverDal]},
+                             index=['Gaslicht.com', 'Pricewise.nl', 'Overstappen.nl', 'Independer.nl' ])
+tableEU3.to_excel(writerTarieven, sheet_name='EU3', index=True,)
+writerTarieven.save()
 
-tableTarieven.to_excel(writerTarieven, sheet_name='EUR1Jaar', index=True,)
+#NL1
+tableNL1 = pd.DataFrame(data={
+                              'Enkel':[glNL1.enkel, pwNL1.enkel, ovNL1.enkel, inNL1.enkel],
+                              'Normaal':[glNL1.normaal, pwNL1.normaal, ovNL1.normaal, inNL1.normaal],
+                              'Dal':[glNL1.dal, pwNL1.dal, ovNL1.dal, inNL1.dal],
+                              'Gas':[glNL1.gas, pwNL1.gas, ovNL1.gas, inNL1.gas],
+                              'Vastrecht Stroom':[glNL1.vastrecht, pwNL1.vastrecht, ovNL1.vastrecht, inNL1.vastrecht],
+                              'Vastrecht gas':[glNL1.vastrecht, pwNL1.vastrecht, ovNL1.vastrecht, inNL1.vastrecht],
+                              'Teruglevertarief':[glNL1.teruglever, pwNL1.teruglever, ovNL1.teruglever, inNL1.teruglever],
+                              'Teruglevertarief Normaal':[glNL1.terugleverNormaal, pwNL1.terugleverNormaal, ovNL1.terugleverNormaal, inNL1.terugleverNormaal],
+                              'Teruglevertarief Dal':[glNL1.terugleverDal, pwNL1.terugleverDal, ovNL1.terugleverDal, inNL1.terugleverDal]},
+                             index=['Gaslicht.com', 'Pricewise.nl', 'Overstappen.nl', 'Independer.nl' ])
+tableNL1.to_excel(writerTarieven, sheet_name='NL1', index=True,)
+writerTarieven.save()
+
+#MODEL
+tableMOD = pd.DataFrame(data={
+                              'Enkel':[glMOD.enkel, pwMOD.enkel, ovMOD.enkel, inMOD.enkel],
+                              'Normaal':[glMOD.normaal, pwMOD.normaal, ovMOD.normaal, inMOD.normaal],
+                              'Dal':[glMOD.dal, pwMOD.dal, ovMOD.dal, inMOD.dal],
+                              'Gas':[glMOD.gas, pwMOD.gas, ovMOD.gas, inMOD.gas],
+                              'Vastrecht Stroom':[glMOD.vastrecht, pwMOD.vastrecht, ovMOD.vastrecht, inMOD.vastrecht],
+                              'Vastrecht gas':[glMOD.vastrecht, pwMOD.vastrecht, ovMOD.vastrecht, inMOD.vastrecht],
+                              'Teruglevertarief':[glMOD.teruglever, pwMOD.teruglever, ovMOD.teruglever, inMOD.teruglever],
+                              'Teruglevertarief Normaal':[glMOD.terugleverNormaal, pwMOD.terugleverNormaal, ovMOD.terugleverNormaal, inMOD.terugleverNormaal],
+                              'Teruglevertarief Dal':[glMOD.terugleverDal, pwMOD.terugleverDal, ovMOD.terugleverDal, inMOD.terugleverDal]},
+                             index=['Gaslicht.com', 'Pricewise.nl', 'Overstappen.nl', 'Independer.nl' ])
+tableMOD.to_excel(writerTarieven, sheet_name='MODEL', index=True,)
 writerTarieven.save()
 
 
 
 
-naar excel:
-tableTarieven.to_excel(writerTarieven, sheet_name='EUR_1Jaar', index=False)
-writerTarieven.save()
 
-"""
+
